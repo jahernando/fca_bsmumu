@@ -42,6 +42,10 @@ Each row of the data is a muon pair:
 
 Some values are missing (NaN): the reconstruction failed.
 
+Each group has its own data. **Your teacher gives you your group number**: set `GROUP` in
+both notebooks, which then read the keys `group{GROUP}/control` and
+`group{GROUP}/search`.
+
 The MC: `df, truth = mc.generate('search', seed=1)` gives a sample with a random number of
 $B^0$ and $B_s$ decays, returned in `truth`. `mc.generate('control')` gives a J/ψ sample.
 `n_bkg=0` gives signal only.
@@ -103,7 +107,8 @@ That is the whole swap.
 ## Git
 
 1. One of you creates the group repository on GitHub, from these files, and adds the
-   other three as **collaborators** (Settings → Collaborators).
+   other three as **collaborators** (Settings → Collaborators). Name it after your group
+   number, e.g. `bsmumu-group3`.
 2. Everyone clones it. Each task on its **own branch**: `git switch -c mass`.
 3. When the tests of your part pass, push the branch and open a **pull request**.
 4. Someone **from the other team** reviews it, then merges it. After a merge, everyone
