@@ -81,6 +81,9 @@ common width $\sigma$ that you measure on the MC and keep fixed.
 
 ## Who does what
 
+A, B, C and D are the four members of the group: decide who is who in the first minutes.
+A and B form the calibration team, C and D the analysis team.
+
 | | Task | Module | Tests |
 |:--|:--|:--|:--|
 | **A** | `invariant_mass`, vectorised with numpy | `dimuon.py` | `test_dimuon.py` |
