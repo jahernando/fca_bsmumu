@@ -1,7 +1,11 @@
 # Search for $B_s \to \mu^+\mu^-$
 
-A group exercise of *Advanced Computational Physics* (USC): **2 hours, groups of 4**. It
-puts together numpy, pandas, scipy, classes, functional programming and git.
+A two-hour group exercise (groups of 4) for *Advanced Computational Physics* (USC). Each
+group searches for the rare decay $B_s \to \mu^+\mu^-$ in synthetic LHCb data. First they
+calibrate the muon momenta with the J/ψ peak, then they fit the dimuon mass spectrum to
+measure the significance of the signal. Along the way they use numpy, pandas, scipy,
+classes, functional programming, testing and git: each task goes on its own branch and
+enters through a reviewed pull request.
 
 ## The physics
 
