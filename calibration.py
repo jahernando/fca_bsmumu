@@ -29,7 +29,10 @@ def fit_peak(m, lo=2.85, hi=3.25, bins=80):
     p0=[amplitude0,mean0,0.015,background0,0]
     count_errors=np.sqrt(np.maximum(counts,1))
     params,covariance=optimize.curve_fit(model,x,counts,p0=p0,sigma=count_errors,absolute_sigma=True,
-                                         bounds=([0,lo,1e-6,-np.inf,-np.inf],),)
+                                         bounds=(
+                                             [0, lo, 1e-6, -np.inf, -np.inf],
+                                             [np.inf, hi, hi - lo, np.inf, np.inf],
+                                         ))
     mean=params[1]
     error=np.sqrt(covariance[1,1])
     width=params[2]
