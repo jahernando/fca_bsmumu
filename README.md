@@ -38,12 +38,12 @@ Each row of the data is a muon pair:
 | `mu2_pt`, `mu2_eta`, `mu2_phi` | the same for muon 2 |
 | `mu1_pid`, `mu2_pid` | probability that the particle is a muon (0 to 1) |
 | `vtx_chi2` | $\chi^2$ of the common vertex of the two muons (small: they come from one decay) |
-| `trigger` | the event passed the trigger |
+| `trigger` | the event was selected online by the dimuon trigger line: it keeps most of the signal and only part of the background |
 
 Some values are missing (NaN): the reconstruction failed.
 
-Each group has its own data. **Your teacher gives you your group number**: set `GROUP` in
-both notebooks, which then read the keys `group{GROUP}/control` and
+Each group has its own data. **Your teacher gives you your group number** (1 to 8): set
+`GROUP` in both notebooks, which then read the keys `group{GROUP}/control` and
 `group{GROUP}/search`.
 
 The MC: `df, truth = mc.generate('search', seed=1)` gives a sample with a random number of
@@ -106,13 +106,17 @@ That is the whole swap.
 
 ## Git
 
-1. One of you creates the group repository on GitHub, from these files, and adds the
-   other three as **collaborators** (Settings → Collaborators). Name it after your group
-   number, e.g. `bsmumu-group3`.
+1. One of you creates the group repository: on the GitHub page of this template,
+   **Use this template → Create a new repository**. Name it after your group number,
+   e.g. `bsmumu-group3`. Then add the other three as **collaborators** (Settings →
+   Collaborators). Each of them must accept the invitation (by email, or in the GitHub
+   notifications) before they can push.
 2. Everyone clones it. Each task on its **own branch**: `git switch -c mass`.
 3. When the tests of your part pass, push the branch and open a **pull request**.
 4. Someone **from the other team** reviews it, then merges it. After a merge, everyone
-   runs `git pull` on `main`.
+   runs `git pull` on `main`. If you work on a branch and need what was just merged (B
+   and D need the mass and the selection), bring `main` into your branch:
+   `git switch main && git pull && git switch calibration && git merge main`.
 5. Each notebook has one owner: only B edits `calibration.ipynb`, only D
    `analysis.ipynb`. Two people editing the same notebook make conflicts that are hard
    to resolve. Code goes in the modules, not in the notebooks.
