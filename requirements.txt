@@ -1,0 +1,8 @@
+# Python >= 3.10. Tested with Python 3.13 and the versions in brackets.
+numpy>=2.0          # [2.5]
+pandas>=2.2         # [3.0]
+scipy>=1.11         # [1.18]
+matplotlib>=3.8     # [3.11]
+tables>=3.9         # [3.11] PyTables: pandas needs it to read the HDF5 data
+pytest>=8           # [9.1]
+jupyterlab>=4       # [4.6]

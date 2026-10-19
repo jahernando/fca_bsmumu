@@ -29,6 +29,10 @@ miscalibration of that size moves one peak onto the other. To calibrate, use the
 | `calibration.json` | the calibration, dummy for now (scales 1) |
 | `test_*.py` | the tests your code must pass: `pytest` |
 | `_generator.py`, `_kinematics.py` | internal to the MC: do not edit |
+| `requirements.txt` | the Python packages needed |
+
+**Setup.** The course environment `fca` already has everything (`conda activate fca`).
+Otherwise, in a new environment: `pip install -r requirements.txt`.
 
 Each row of the data is a muon pair:
 
