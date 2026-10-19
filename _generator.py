@@ -1,8 +1,9 @@
 """Internal to the MC: generator of muon-pair samples. Do not edit.
 
-Each event is a muon pair: (pt, eta, phi, pid) per muon, the vertex chi2 and a trigger bit.
-Components: resonances decaying to two real muons, and a combinatorial background whose
-true mass follows an exponential.
+Each event is a muon pair: (pt, eta, phi, charge, pid) per muon, the vertex chi2 and a
+trigger bit. Components: resonances decaying to two real muons of opposite charge, and a
+combinatorial background whose true mass follows an exponential and whose charges are
+independent (half of the pairs have the same sign).
 """
 
 import numpy as np
@@ -47,7 +48,7 @@ def generate(sample, yields, scales=(1.0, 1.0), seed=None):
     """
     rng = np.random.default_rng(seed)
     masses = {'jpsi': kin.M_JPSI, 'b0': kin.M_B0, 'bs': kin.M_BS}
-    parts = []
+    parts, signal = [], []
     for name, n in yields.items():
         if n == 0:
             continue
@@ -56,7 +57,16 @@ def generate(sample, yields, scales=(1.0, 1.0), seed=None):
         else:
             m = np.full(n, masses[name])
         parts.append(_component(m, name != 'bkg', rng))
+        signal.append(np.full(len(parts[-1]), name != 'bkg'))
     df = pd.concat(parts, ignore_index=True)
+    signal = np.concatenate(signal)
+
+    # charges from their own stream, so that the other columns do not depend on them
+    qrng = np.random.default_rng(None if seed is None else [int(seed), 7])
+    q1 = qrng.choice(np.array([-1, 1], dtype='int8'), len(df))
+    q2 = np.where(signal, -q1, qrng.choice(np.array([-1, 1], dtype='int8'), len(df)))
+    df.insert(df.columns.get_loc('mu1_phi') + 1, 'mu1_q', q1)
+    df.insert(df.columns.get_loc('mu2_phi') + 1, 'mu2_q', q2.astype('int8'))
 
     for i in (1, 2):
         scale = np.where(df[f'mu{i}_eta'] < ETA_SPLIT, *scales)

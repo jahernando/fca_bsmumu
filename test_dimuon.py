@@ -27,3 +27,10 @@ def test_jpsi_peak_in_mc():
 def test_select_removes_missing_values():
     df, _ = mc.generate('control', n_bkg=4000, seed=2)
     assert not dimuon.select(df).isna().any().any()
+
+
+def test_select_keeps_opposite_charges():
+    df, _ = mc.generate('search', n_bkg=4000, seed=3)
+    selected = dimuon.select(df)
+    assert len(selected) > 0
+    assert (selected['mu1_q'] * selected['mu2_q'] == -1).all()

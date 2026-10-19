@@ -9,7 +9,7 @@ import numpy as np
 import _generator as gen
 
 
-def generate(sample='search', n_bkg=20_000, n_b0=None, n_bs=None, seed=None):
+def generate(sample='search', n_bkg=40_000, n_b0=None, n_bs=None, seed=None):
     """Return (DataFrame, truth) for sample 'search' (B region) or 'control' (J/psi).
 
     In 'search', the numbers of B0 and Bs decays are random unless given (n_b0, n_bs).

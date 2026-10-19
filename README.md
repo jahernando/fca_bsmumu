@@ -36,6 +36,7 @@ Each row of the data is a muon pair:
 |:--|:--|
 | `mu1_pt`, `mu1_eta`, `mu1_phi` | transverse momentum (GeV), pseudorapidity and azimuth of muon 1 |
 | `mu2_pt`, `mu2_eta`, `mu2_phi` | the same for muon 2 |
+| `mu1_q`, `mu2_q` | electric charge of each muon: +1 or −1 |
 | `mu1_pid`, `mu2_pid` | probability that the particle is a muon (0 to 1) |
 | `vtx_chi2` | $\chi^2$ of the common vertex of the two muons (small: they come from one decay) |
 | `trigger` | the event was selected online by the dimuon trigger line: it keeps most of the signal and only part of the background |
@@ -91,7 +92,7 @@ A and B form the calibration team, C and D the analysis team.
 | | Task | Module | Tests |
 |:--|:--|:--|:--|
 | **A** | `invariant_mass`, vectorised with numpy | `dimuon.py` | `test_dimuon.py` |
-| **C** | the cuts and `select` (functions combined with `functools.reduce`) | `dimuon.py` | `test_dimuon.py` |
+| **C** | the cuts (opposite charges, muon identification, vertex) and `select` (functions combined with `functools.reduce`) | `dimuon.py` | `test_dimuon.py` |
 | **B** | `fit_peak`, `Calibration.apply` and `Calibration.fit`; `calibration.ipynb` | `calibration.py` | `test_calibration.py` |
 | **D** | `search.fit` and `search.pvalue`; `analysis.ipynb` | `search.py` | `test_search.py` |
 
@@ -131,6 +132,22 @@ That is the whole swap.
 | 60–85 | B: fit on MC (scales ≈ 1), then on data → PR with `calibration.json` | D: MC closure test, p-value on MC |
 | 85–105 | A: check with the mixed events | D: `USE_DATA = True`, fit, p-value. C: figure |
 | 105–120 | README: results and figure; final PR | the same |
+
+## Extra: the same-sign pairs
+
+A $B_s$ decays into $\mu^+\mu^-$: the signal pairs have opposite charges. The background
+pairs are combinations of unrelated muons, so about half of them have the same sign. The
+same-sign pairs that pass all the other cuts are therefore a sample of pure background.
+Fit their mass spectrum with the exponential alone: is the slope compatible with the one
+of the opposite-sign fit?
+
+## For the discussion
+
+The data have one row per **event**, with the columns of the two muons side by side
+(`mu1_...`, `mu2_...`): the *wide* format. The alternative is one row per **muon**, with
+columns `event`, `pt`, `eta`, `phi`, `q`, `pid`: the *long* format, and `groupby('event')`.
+Which one would have been more convenient? Think of the invariant mass, of cuts on each
+muon and on the event, and of events with more than two muons.
 
 ## Deliverable
 

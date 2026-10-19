@@ -22,7 +22,7 @@ def has_trigger(df):
     return df['trigger']
 
 
-# TODO (C): more cuts, e.g. on mu1_pid, mu2_pid and vtx_chi2
+# TODO (C): more cuts: opposite charges (mu1_q, mu2_q), and on mu1_pid, mu2_pid and vtx_chi2
 
 CUTS = [has_trigger]
 
